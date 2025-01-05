@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -26,4 +27,7 @@ require __DIR__.'/auth.php';
 // =============================
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 
-
+// =============================
+// product Route
+// =============================
+Route::get('/products', [ProductController::class, 'showProducts'])->name('products.index');
