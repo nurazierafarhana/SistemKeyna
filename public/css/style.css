@@ -403,7 +403,7 @@ h4, .h4 {
 
 @media (max-width: 1200px) {
   h4, .h4 {
-    font-size: calc(1.275rem + 0.3vw) ;
+    font-size: 12px;
   }
 }
 
@@ -452,7 +452,7 @@ h6, .h6 {
 
 @media (max-width: 1200px) {
   .display-3 {
-    font-size: calc(1.575rem + 3.9vw) ;
+    font-size: 25px;
   }
 }
 
