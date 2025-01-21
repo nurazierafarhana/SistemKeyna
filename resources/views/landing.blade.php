@@ -245,7 +245,7 @@
         <div class="container py-5">
             <div class="row">
                 <div class="col-lg-6">
-                    <h1 class="section-title position-relative mb-5">Perkhidmatan Terbaik Yang Kami Sediakan Untuk Pelanggan Kami</h1>
+                    <h1 class="section-title position-relative mb-5">Kami juga menyediakan..</h1>
                 </div>
                 <div class="col-lg-6 mb-5 mb-lg-0 pb-5 pb-lg-0"></div>
             </div>
@@ -257,8 +257,9 @@
                                 <img class="rounded-circle w-100 h-100 bg-light p-3" src="img/service-1.jpg" style="object-fit: cover;">
                             </div>
                             <div class="position-relative text-center bg-light rounded p-4 pb-5" style="margin-top: -75px;">
-                                <h5 class="font-weight-semi-bold mt-5 mb-3 pt-5">Sambutan Hari Graduasi</h5>
-                                <p>Raikan pengijazahan anda di Keyna Cafe! Nikmati aiskrim yang menyelerakan bersama orang tersayang.</p>
+                                <h5 class="font-weight-semi-bold mt-5 mb-3 pt-5">Tempahan Nasi Briyani</h5>
+                                <p>Kami menerima tempahan Nasi Briyani Keyna Cafe yang lazat—sesuai untuk majlis perkahwinan,
+                                     parti dan pelbagai lagi.</p>
                                 <a href="" class="border-bottom border-secondary text-decoration-none text-secondary">Learn More</a>
                             </div>
                         </div>
@@ -290,65 +291,34 @@
     <!-- Services End -->
 
 
-    <!-- Portfolio Start -->
-    <div class="container-fluid my-5 py-5 px-0">
-        <div class="row justify-content-center m-0">
-            <div class="col-lg-5">
-                <h1 class="section-title position-relative text-center mb-5">Cerita Kami</h1>
-            </div>
-        </div>
-        <div class="row m-0 portfolio-container">
-            <div class="col-lg-4 col-md-6 p-0 portfolio-item">
-                <div class="position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="img/portfolio-1.jpg" alt="">
-                    <a class="portfolio-btn" href="img/portfolio-1.jpg" data-lightbox="portfolio">
-                        <i class="fa fa-plus text-primary" style="font-size: 60px;"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 p-0 portfolio-item">
-                <div class="position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="img/portfolio-2.jpg" alt="">
-                    <a class="portfolio-btn" href="img/portfolio-2.jpg" data-lightbox="portfolio">
-                        <i class="fa fa-plus text-primary" style="font-size: 60px;"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 p-0 portfolio-item">
-                <div class="position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="img/portfolio-3.jpg" alt="">
-                    <a class="portfolio-btn" href="img/portfolio-3.jpg" data-lightbox="portfolio">
-                        <i class="fa fa-plus text-primary" style="font-size: 60px;"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 p-0 portfolio-item">
-                <div class="position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="img/portfolio-4.jpg" alt="">
-                    <a class="portfolio-btn" href="img/portfolio-4.jpg" data-lightbox="portfolio">
-                        <i class="fa fa-plus text-primary" style="font-size: 60px;"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 p-0 portfolio-item">
-                <div class="position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="img/portfolio-5.jpg" alt="">
-                    <a class="portfolio-btn" href="img/portfolio-5.jpg" data-lightbox="portfolio">
-                        <i class="fa fa-plus text-primary" style="font-size: 60px;"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 p-0 portfolio-item">
-                <div class="position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="img/portfolio-6.jpg" alt="">
-                    <a class="portfolio-btn" href="img/portfolio-6.jpg" data-lightbox="portfolio">
-                        <i class="fa fa-plus text-primary" style="font-size: 60px;"></i>
-                    </a>
-                </div>
-            </div>
+<!-- Portfolio Start -->
+<div class="container-fluid my-5 py-5 px-0">
+    <div class="row justify-content-center m-0">
+        <div class="col-lg-5">
+            <h1 class="section-title position-relative text-center mb-5">Cerita Kami</h1>
         </div>
     </div>
-    <!-- Portfolio End -->
+    <div class="row m-0 portfolio-container">
+        @php
+            $images = DB::table('images')->get();
+        @endphp
+
+        @foreach ($images as $image)
+        <div class="col-lg-4 col-md-6 p-0 portfolio-item">
+            <div class="position-relative overflow-hidden">
+                <img class="img-fluid w-100" src="{{ asset('storage/images/' . $image->file_path) }}" alt="">
+                <a class="portfolio-btn" href="{{ asset('storage/images/' . $image->file_path) }}" data-lightbox="portfolio">
+                    <i class="fa fa-plus text-primary" style="font-size: 60px;"></i>
+                </a>
+            </div>
+        </div>
+        @endforeach
+    </div>
+</div>
+<!-- Portfolio End -->
+
+
+
 
 
     <!-- Products Start -->
