@@ -1,41 +1,66 @@
-<!-- resources/views/home.blade.php -->
 <x-app-layout>
-    <!-- Carousel Start -->
-    <div class="container-fluid p-0 mb-5 pb-5">
-        <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img class="w-100" src="{{ asset('img/carousel-1.jpg') }}" alt="First Slide">
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <div class="p-3" style="max-width: 900px;">
-                            <h4 class="text-white text-uppercase mb-md-3">Welcome to a World of Keyna Cafe</h4>
-                            <h1 class="display-3 text-white mb-md-4"> Frozen Yogurt, Ice Cream, and Fresh Treats!</h1>
-                            <a href="#" class="btn btn-primary py-md-3 px-md-5 mt-2">Learn More</a>
-                        </div>
-                    </div>
+
+    <div class="hidden flex w-full justify-center items-center" id="message-modal" data-object="{{ Session::get('unauthorized') }}">
+        <div class="px-4 py-2 mb-4 mx-2 bg-red-100 w-8/12 flex">
+            <p id="message-content" class="text-red-800 flex-grow m-auto font-semibold"></p>
+            <button type="button" class="close text-lg" id="close">x</button>
+        </div>
+    </div>
+    
+    <div class="mx-8 my-4">
+        <div class="flex flex-wrap justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <span class="font-bold">Kategori:</span>
+                @foreach(['Semua' => 'dashbord','Minuman' => 'Minuman', 'Aiskrim' => 'Aiskrim', 'Nasi' => 'Nasi', 'Pencuci Mulut' => 'Pencuci Mulut'] as $label => $filter)
+                <div class="py-1 px-3 border border-slate-300 rounded-xl bg-white">
+                    <a href="{{ route('dashboard', ['filter' => $filter]) }}" class="text-gray-700 hover:text-blue-500">{{ $label }}</a>
                 </div>
-                <div class="carousel-item">
-                    <img class="w-100" src="{{ asset('img/carousel-2.jpg') }}" alt="Second Slide">
-                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                        <div class="p-3" style="max-width: 900px;">
-                            <h4 class="text-white text-uppercase mb-md-3">Made From Our Own Organic Milk</h4>
-                            <h1 class="display-3 text-white mb-md-4">Organic & Fresh</h1>
-                            <a href="#" class="btn btn-primary py-md-3 px-md-5 mt-2">Learn More</a>
-                        </div>
-                    </div>
+                @endforeach
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="font-bold">Susun mengikut:</span>
+                <div class="py-1 px-3 border border-slate-300 rounded-xl bg-white">
+                    <a href="{{ request()->fullUrlWithQuery(['asc' => true]) }}" class="text-gray-700 hover:text-blue-500">Terendah</a>
+                </div>
+                <div class="py-1 px-3 border border-slate-300 rounded-xl bg-white">
+                    <a href="{{ request()->fullUrlWithQuery(['asc' => false]) }}" class="text-gray-700 hover:text-blue-500">Tertinggi</a>
                 </div>
             </div>
-            <a class="carousel-control-prev" href="#header-carousel" data-bs-slide="prev">
-                <div class="btn btn-secondary px-0" style="width: 45px; height: 45px;">
-                    <span class="carousel-control-prev-icon mb-n1"></span>
-                </div>
-            </a>
-            <a class="carousel-control-next" href="#header-carousel" data-bs-slide="next">
-                <div class="btn btn-secondary px-0" style="width: 45px; height: 45px;">
-                    <span class="carousel-control-next-icon mb-n1"></span>
+        </div>
+    </div>
+    
+    <div class="p-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+        @foreach($foods as $data)
+        <div class="rounded-md overflow-hidden shadow-md border border-gray-200 hover:shadow-lg transition">
+            <a href="{{ route('food.show', $data['id']) }}">
+                <img class="h-48 w-full object-cover" src="{{ $data['picture'] }}" alt="{{ $data['name'] }}">
+                <div class="p-4">
+                    <h2 class="font-bold text-xl mb-2">{{ $data['name'] }}</h2>
+                    <p class="text-gray-700 text-base">RM {{ number_format($data['price'], 2) }}</p>
                 </div>
             </a>
         </div>
+        @endforeach
     </div>
-    <!-- Carousel End -->
+    
+    <div class="p-5">
+        {{ $foods->appends(request()->query())->links() }}
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('message-modal');
+            const content = document.getElementById('message-content');
+            const closeBtn = document.getElementById('close');
+    
+            if (modal.dataset.object !== '') {
+                modal.classList.remove('hidden');
+                content.textContent = modal.dataset.object;
+            }
+    
+            closeBtn.addEventListener('click', () => {
+                modal.classList.add('hidden');
+            });
+        });
+    </script>
 </x-app-layout>
