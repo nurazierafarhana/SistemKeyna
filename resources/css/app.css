@@ -2,3 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 @import 'bootstrap/dist/css/bootstrap.min.css';
+
+img, video {
+    width: 60px;
+    height: auto;
+}

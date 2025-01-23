@@ -5,11 +5,11 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\FoodController;
+
 
 Route::get('/', [LandingPageController::class, 'index']);
 
-
-use App\Http\Controllers\FoodController;
 
 Route::get('/dashboard', [FoodController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -32,13 +32,25 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/products', [ProductController::class, 'showProducts'])->name('products.index');
 
 
+Route::middleware('auth')->group(function () {
+Route::get('/foods', [FoodController::class, 'index'])->name('food.index');
+Route::get('/foods/filter/{type}', [FoodController::class, 'filter'])->name('food.filter');
+Route::get('/foods/sort/{type}', [FoodController::class, 'sortByPrice'])->name('food.sort');
+Route::get('/foods/admin', [FoodController::class, 'adminIndex'])->name('food.admin');
+Route::get('/foods/{id}', [FoodController::class, 'show'])->name('food.show');
+Route::get('/foods/edit/{id}', [FoodController::class, 'getForUpdate'])->name('food.edit');
+Route::post('/foods', [FoodController::class, 'create'])->name('food.create');
+Route::put('/foods/{id}', [FoodController::class, 'update'])->name('food.update');
+Route::delete('/foods/{id}', [FoodController::class, 'destroy'])->name('food.destroy');
+});
 
-Route::get('/foods', [FoodController::class, 'index'])->name('foods.index');
-Route::get('/foods/filter/{type}', [FoodController::class, 'filter'])->name('foods.filter');
-Route::get('/foods/sort/{type}', [FoodController::class, 'sortByPrice'])->name('foods.sort');
-Route::get('/foods/admin', [FoodController::class, 'adminIndex'])->name('foods.admin');
-Route::get('/foods/{id}', [FoodController::class, 'show'])->name('foods.show');
-Route::get('/foods/edit/{id}', [FoodController::class, 'getForUpdate'])->name('foods.edit');
-Route::post('/foods', [FoodController::class, 'create'])->name('foods.create');
-Route::put('/foods/{id}', [FoodController::class, 'update'])->name('foods.update');
-Route::delete('/foods/{id}', [FoodController::class, 'destroy'])->name('foods.destroy');
+// // ==============================
+// // ADMIN CONTROLLER
+// // ================================
+
+
+use App\Http\Controllers\AdminController;
+
+Route::get('/admin-login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/admin-login', [AdminController::class, 'login'])->name('admin.login.post');
+Route::get('/admin-dashboard', [AdminController::class, 'dashboard'])->name('dashboardadmin');

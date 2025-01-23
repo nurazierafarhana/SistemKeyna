@@ -56,7 +56,10 @@ public function index()
         return view('food.home', ['foods' => $foods]);
     }
 
-    // Admin view of foods
+    // ===============================
+    //      Admin view of foods
+    // ===============================
+
     public function adminIndex()
     {
         $foods = Food::orderBy('id', 'desc')->paginate(10);
@@ -66,7 +69,7 @@ public function index()
     // Show a specific food
     public function show($id)
     {
-        $food = Food::findOrFail($id);
+        $food = Food::findOrFail($id); // Fetch food by ID or fail with a 404 error
         return view('food.show', ['food' => $food]);
     }
 
